@@ -12,18 +12,22 @@ let clientes = [];
 
 //Evento: Quando algum cliente se conectou
 wsServer.on('connection', function(ws) {
-    // Quando algum cliente se conectar a este server vai executar tudo oq está aqui dentro
-    if(clientes.length == 2) {
+    // Limita em até dois clientes
+    if(clientes.length >= 2) {
         ws.send('Já está cheio!');
         ws.close();
+        return;
+    } 
+    else {
+        clientes.push(ws);
+        console.log('Novo cliente conectado ' + clientes.length);
     }
-    clientes.push(ws);
-    console.log('Novo cliente conectado ' + clientes.length);
+    
     // let sendJson = {
     //     "dataType":"id",
     //     "jsonData":"1"
     // };
-    ws.send(0);
+    // ws.send(JSON.stringify(sendJson));
 
 
     // Evento: Quando recebe uma mensagem
