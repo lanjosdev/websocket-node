@@ -35,7 +35,14 @@ wsServer.on('connection', function(ws) {
         // console.log(`Mensagem: ${msg}`);
         // sockets.forEach(s => s.send(msg));
         // ws.send(`Eco: ${msg}`);  
-        wsServer.clients.forEach((client)=> client.send(msg.toString())); // Envia para todos os clientes
+        
+        // let buffer = new Uint8Array(msg).buffer;
+        // let dataView = new DataView(buffer);
+        // // get 8-bit number at offset 0
+        // console.log( dataView.getUint8(0) );
+        console.log(msg);
+
+        wsServer.clients.forEach((client)=> client.send(msg)); // Envia para todos os clientes
     });
 
     // Evento: Quando a conexão é fechada
